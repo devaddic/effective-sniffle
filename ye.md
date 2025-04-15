@@ -1,127 +1,100 @@
-Here’s a **Markdown** version of your request for the R functions `plot()` and `unique()`, including their purpose, package, function headers, parameter options, graphical parameters, and example use cases. The output uses **tables**, **color**, and **formatting** to enhance readability and is ready to be saved or converted to PDF/HTML/Markdown documents.
+---
+
+## **1. `plot()`**  
+**Package**: `graphics`
+
+### **🔹 Purpose**  
+Creates a **scatterplot**, **line plot**, or other types of base graphics plots depending on the type of input data. It is a generic function with methods for different data types (e.g., numeric, factor, formula).
 
 ---
 
-```markdown
-# 📊 R Function Reference
-
----
-
-## 🎨 **1. `plot()` Function**
-
-### 📦 Package: `graphics`
-
-### 🧭 Purpose:
-The `plot()` function is a **generic function** for creating a wide variety of plots, including scatterplots, line plots, and more. Its behavior adapts depending on the class of its arguments.
-
----
-
-### 🔧 Function Header:
+### **🔹 Function Header**
 ```r
-plot(x, y = NULL, type = "p", main = NULL, sub = NULL,
-     xlab = NULL, ylab = NULL, asp = NA, xlim = NULL,
-     ylim = NULL, log = "", ...)
+plot(x, y = NULL, type = "p", main = NULL, sub = NULL, xlab = NULL, ylab = NULL,
+     asp = NA, xlim = NULL, ylim = NULL, log = "", ...)
+```
+
+| **Parameter** | **Description** | **Accepted Values / Type** |
+|---------------|------------------|-----------------------------|
+| `x` | The coordinates or object to be plotted. | Numeric vector, formula, or object. |
+| `y` | Optional y-coordinates. | Numeric vector or `NULL`. |
+| `type` | Type of plot. | `"p"` (points), `"l"` (lines), `"b"` (both), `"c"` (lines without points), `"o"` (overplotted), `"h"` (histogram-like vertical lines), `"s"` (stair steps), `"S"` (other stair steps), `"n"` (no plotting). |
+| `main` | Main title of the plot. | Character string |
+| `sub` | Subtitle of the plot. | Character string |
+| `xlab`, `ylab` | Axis labels. | Character string |
+| `asp` | Aspect ratio. | `NA` (default), or numeric |
+| `xlim`, `ylim` | Axis limits. | Numeric vector of length 2 |
+| `log` | Axis scaling (logarithmic). | `""`, `"x"`, `"y"`, `"xy"` |
+| `...` | Additional graphical parameters. | See graphical parameters below |
+
+---
+
+### **🔹 Graphical Parameters (Selected)**  
+Can be passed via `...`
+
+| **Parameter** | **Purpose** | **Accepted Values** |
+|---------------|------------|---------------------|
+| `col` | Color of plot elements. | Color names, hex codes, or numeric (e.g., `"red"`, `"#FF0000"`, `1`) |
+| `pch` | Plotting symbol. | Integer or character (e.g., `1`–`25`, `"+"`, `"x"`) |
+| `lty` | Line type. | `"solid"`, `"dashed"`, `"dotted"`, `"dotdash"`, `"longdash"`, `"twodash"`, or integers `0`–`6` |
+| `lwd` | Line width. | Numeric |
+| `cex` | Character expansion for symbols/text. | Numeric |
+| `bg` | Background color for symbols with fill. | Color |
+| `xaxs`, `yaxs` | Axis interval type. | `"r"` (regular), `"i"` (internal) |
+| `xaxt`, `yaxt` | Axis drawing control. | `"s"` (standard), `"n"` (none) |
+| `frame.plot` | Draw box around plot. | `TRUE`, `FALSE` |
+
+---
+
+### **🔹 Example Use Cases**
+```r
+# Simple scatter plot
+plot(1:10, rnorm(10))
+
+# Line plot with titles
+plot(1:10, sin(1:10), type = "l", main = "Sine Wave", xlab = "Index", ylab = "Value")
+
+# Custom symbols and colors
+plot(1:5, 1:5, pch = 19, col = "blue", cex = 2)
 ```
 
 ---
 
-### 📌 Parameters:
+## **2. `unique()`**  
+**Package**: `base`
 
-| **Parameter** | **Description** | **Accepted Values** |
-|---------------|-----------------|----------------------|
-| `x`           | X-coordinates or an object | numeric vector, factor, or object |
-| `y`           | Y-coordinates (optional) | numeric or `NULL` |
-| `type`        | Type of plot | `"p"`, `"l"`, `"b"`, `"c"`, `"o"`, `"h"`, `"s"`, `"S"`, `"n"` |
-| `main`        | Main title | Character string |
-| `sub`         | Subtitle | Character string |
-| `xlab`, `ylab`| Axis labels | Character string |
-| `xlim`, `ylim`| Axis limits | Numeric vector of length 2 |
-| `log`         | Log scale axis | `"x"`, `"y"`, `"xy"`, or `""` |
-| `asp`         | Aspect ratio | Numeric or `NA` |
-| `...`         | Graphical parameters | See below 👇 |
+### **🔹 Purpose**  
+Returns a vector, data frame, or array **with duplicate elements/rows removed**, keeping the first occurrence.
 
 ---
 
-### 🎨 Graphical Parameters
-
-| **Parameter** | **Description** | **Accepted Values** |
-|---------------|-----------------|----------------------|
-| `col`         | Element color | Any color name/hex/index |
-| `pch`         | Plotting character | Integers 0–25 or symbols `"*"`, `"+"`, `"o"`, etc. |
-| `lty`         | Line type | `"solid"`, `"dashed"`, `"dotted"`, `"dotdash"`, `"longdash"`, `"twodash"` or 1–6 |
-| `lwd`         | Line width | Numeric |
-| `cex`         | Point/text size | Numeric |
-| `bg`          | Background color | Same as `col` |
-| `xaxs`, `yaxs`| Axis calculation style | `"r"`, `"i"`, `"e"`, `"s"`, `"d"` |
-| `xpd`         | Clipping | `TRUE`, `FALSE`, `NA` |
-| `mar`         | Margins | Numeric vector of 4 values |
-| `mfrow`, `mfcol` | Multi-plot layout | Integer vector (e.g., `c(2,2)`) |
-
----
-
-### ✅ Example Use Cases
-
-```r
-# Basic scatterplot
-plot(1:10, rnorm(10), main = "Basic Scatter", col = "blue", pch = 19)
-
-# Line plot with dotted lines
-plot(1:10, rnorm(10), type = "l", col = "red", lty = "dotted", lwd = 2)
-
-# Both lines and points
-plot(1:10, rnorm(10), type = "b", col = "darkgreen", pch = 17)
-```
-
----
-
-## 🧹 **2. `unique()` Function**
-
-### 📦 Package: `base`
-
-### 🧭 Purpose:
-The `unique()` function extracts the **unique elements** of a vector, data frame, array, or list by **removing duplicate values**.
-
----
-
-### 🔧 Function Header:
+### **🔹 Function Header**
 ```r
 unique(x, incomparables = FALSE, ...)
 ```
 
----
-
-### 📌 Parameters:
-
-| **Parameter**     | **Description**                      | **Accepted Values**                        |
-|-------------------|--------------------------------------|--------------------------------------------|
-| `x`               | Input object                         | vector, data frame, array, list, etc.      |
-| `incomparables`   | Exclude values from comparison       | `FALSE`, or a vector of incomparable values|
-| `...`             | Extra parameters for methods         | Passed to/from other methods               |
+| **Parameter** | **Description** | **Accepted Values / Type** |
+|---------------|------------------|-----------------------------|
+| `x` | Object to process. | Vector, data frame, array, factor |
+| `incomparables` | Values that cannot be compared. | Logical or vector (usually `FALSE`) |
+| `...` | Additional arguments passed to methods. | Varies (e.g., used in method for data frames) |
 
 ---
 
-### ✅ Example Use Cases
-
+### **🔹 Example Use Cases**
 ```r
-# Vector: Remove duplicates
-unique(c(1, 2, 2, 3, 1, 4))
-# [1] 1 2 3 4
+# Vector
+unique(c(1, 2, 2, 3, 1))
+# Output: 1 2 3
 
-# Data frame: Unique rows
-df <- data.frame(a = c(1,1,2), b = c("x", "x", "y"))
+# Character vector
+unique(c("apple", "banana", "apple"))
+# Output: "apple" "banana"
+
+# Data frame
+df <- data.frame(name = c("A", "B", "A"), value = c(1, 2, 1))
 unique(df)
-#   a b
-# 1 1 x
-# 3 2 y
+# Output: Returns only unique rows
 ```
 
 ---
-
-> ✅ **Tip:** Use `duplicated()` to find duplicates before calling `unique()` if you want more control.
-
----
-```
-
----
-
-Let me know if you'd like a **PDF version** of this Markdown output — I can generate that for you too!
